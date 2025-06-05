@@ -682,6 +682,25 @@ footer {
   }
 }
 
+/* القواعد الأساسية للعرض على أجهزة ما بين 600px و992px */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  nav ul li a {
+    font-size: 1rem;
+  }
+  section {
+    padding: 100px 15px 50px;
+  }
+}
 /* القواعد الخاصة لشاشات أصغر من 600px */
 @media (max-width: 600px) {
   nav h1 {
@@ -715,6 +734,22 @@ footer {
   section {
     padding: 100px 10px 40px;
   }
+
+  /* ==============================
+     تنسيق مهاراتي – عرض عربي/إنجليزي خطًا بخط على الجوال
+     ============================== */
+  /* نجعل الفقرة العربية والإنجليزية تأخذ عرضًا كاملاً وتصبح في سطر خاص */
+  .skills-list .text-ar,
+  .skills-list .text-en {
+    display: block !important;
+    width: 100% !important;
+    margin: 4px 0; /* مسافة بسيطة بين السطور */
+  }
+  /* نتأكد أن عنصر li لم يعد يستخدم flex في هذه الحالة */
+  .skills-list li {
+    display: block !important;
+    text-align: right; /* يحافظ على محاذاة النص العربي إلى اليمين */
+  }
 }
 
 /* ==============================
@@ -724,7 +759,7 @@ footer {
   /* 1) نرفع المسافة العلوية للقسم #home بشكل خاص لأن عنوانه طويل وينقسم على سطرين */
   section#home {
     /* بدّلنا 220px إلى 260px لكي نخلي الهيدر لا يغطي كلمة "مرحبا بك..." */
-    padding-top: 260px !important;
+    padding-top: 280px !important;
   }
 
   /* 2) نحدث scroll-padding-top بنفس القيمة، حتى لو نقر المستخدم على رابط #home لا يختفي العنوان خلف الهيدر */
