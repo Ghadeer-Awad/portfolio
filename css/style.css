@@ -276,7 +276,7 @@ section h2::after {
 }
 
 /* ==============================
-   قسم المشاريع (Projects) – تنسيق عصري احترافي
+   قسم المشاريع (Projects) 
    ============================== */
 #projects {
   text-align: center;
@@ -307,10 +307,10 @@ section h2::after {
 /* تصميم بطاقة المشروع */
 .project {
   background: var(--white);
-  border-left: 5px solid var(--accent-start);  /* شريط ملون عمودي يعطي لمسة عصرية */
+  border-left: 5px solid var(--accent-start);  /* شريط ملون عمودي  */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 25px 20px 20px;  /* أضف padding من الأعلى ليوفر مساحة للشريط المتحرك */
+  padding: 25px 20px 20px;  
   margin-bottom: 50px;
   position: relative; /* ضروري لاحتواء الشريط المتحرك */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -495,7 +495,7 @@ section h2::after {
   height: 24px;
 }
 
-/* ======= Email Tooltip Styles (استعادة الأيقونة الأصلية) ======= */
+/* ======= Email Tooltip Styles ======= */
 .tooltip-container {
   position: relative;
   height: 70px;
@@ -602,7 +602,7 @@ section h2::after {
   text-indent: -9999px;
 }
 
-/* ======= Phone Button Styles (تصحيح وضوح الأيقونة) ======= */
+/* Phone Button Styles */
 .phone-btn {
   display: flex;
   align-items: center;
@@ -624,7 +624,7 @@ section h2::after {
   background: #b2ebf2;
 }
 
-/* تأكد من استخدام خط FontAwesome ووزن مناسب ليظهر الأيقونة بوضوح */
+
 .phone-btn .icon {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -645,9 +645,8 @@ footer {
   margin-top: 60px;
 }
 
-/* ==============================
-   تجاوب (Responsive)
-   ============================== */
+
+/* تجاوب (Responsive) */
 @media (max-width: 992px) {
   .laptop {
     width: 360px;
@@ -715,5 +714,26 @@ footer {
   }
   section {
     padding: 100px 10px 40px;
+  }
+}
+
+/* ==============================
+   ضبط مسافة المحتوى العلوي كي لا يغطيه الهيدر على الجوال
+   ============================== */
+@media (max-width: 768px) {
+  /* بما أن الهيدر (nav) يتحول إلى عمودي ويكبر ارتفاعه، نرفع padding-top للأقسام */
+  section {
+    /* نزيد الـ padding-top من 100px إلى 180px */
+    padding: 180px 15px 50px;
+  }
+  
+  /* يمكن أيضًا تقليل padding الهيدر نفسه قليلًا */
+  nav {
+    padding: 10px 15px;
+  }
+  
+  /* تخفيف حجم الفواصل بين الروابط في القائمة كي لا يطول ارتفاعها أكثر من اللازم */
+  nav ul {
+    gap: 8px;
   }
 }
