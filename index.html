@@ -24,7 +24,9 @@
   <header>
     <nav>
       <h1>غدير المطيري | Ghadeer Almutairi</h1>
-      <ul>
+    
+      <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
+	  <ul class="nav-links">
         <li><a href="#home">الرئيسية | Home</a></li>
         <li><a href="#about">عني | About</a></li>
         <li><a href="#skills">مهاراتي | My Skills</a></li>
@@ -415,5 +417,11 @@
       document.getElementById('lightbox').style.display = 'none';
     }
   </script>
+  
+  <script>
+  function toggleMobileMenu() {
+    document.querySelector('.nav-links').classList.toggle('show');
+  }
+</script>
 </body>
 </html>
