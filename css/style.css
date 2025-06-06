@@ -728,9 +728,12 @@ footer {
     gap: 20px;
   }
   .project-tabs {
-  flex-direction: column !important;
-  align-items: center;
-  gap: 10px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
 }
   section {
     padding: 100px 10px 40px;
@@ -821,5 +824,13 @@ footer {
   .skills-list .text-en {
     text-align: left;
     width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .skills,
+  .project-box {
+    text-align: left;
+    direction: ltr;
   }
 }
