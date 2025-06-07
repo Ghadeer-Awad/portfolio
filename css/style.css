@@ -874,3 +874,24 @@ footer {
     z-index: 1400;
   }
 }
+
+/* ====== على الجوال: أيقونة الهامبرغر والقائمة على اليسار ====== */
+@media (max-width: 768px) {
+  .mobile-menu-icon {
+    right: auto !important;
+    left: 20px !important;
+  }
+  .nav-links.show {
+    right: auto !important;
+    left: 20px !important;
+  }
+}
+
+/* ====== على الآيباد الطولي: محاذاة النص الإنجليزي إلى اليسار ====== */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .skills-list .text-en {
+    text-align: left !important;
+    direction: ltr !important;
+    width: 100% !important;
+  }
+}
