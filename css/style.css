@@ -834,3 +834,43 @@ footer {
     direction: ltr;
   }
 }
+
+/* ====== إجبار إظهار أيقونة الهامبرغر وإخفاء الروابط العادية على الجوال ====== */
+@media (max-width: 768px) {
+  /* تأكدي من أن nav نسبة إلى position:relative لتصبح absolute داخلها */
+  nav {
+    position: relative;
+  }
+
+  /* أخفي القائمة الأفقية الافتراضية */
+  .nav-links {
+    display: none !important;
+  }
+
+  /* جعل الهامبرغر ظاهراً في الهيدر */
+  .mobile-menu-icon {
+    display: block !important;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1500;
+  }
+
+  /* عندما تضاف show عبر toggleMobileMenu، أظهر القائمة عمودياً */
+  .nav-links.show {
+    display: flex !important;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--white);
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1400;
+  }
+}
