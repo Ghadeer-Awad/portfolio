@@ -763,7 +763,7 @@ footer {
   /* 1) نرفع المسافة العلوية للقسم #home بشكل خاص لأن عنوانه طويل وينقسم على سطرين */
   section#home {
     /* بدّلنا 220px إلى 260px لكي نخلي الهيدر لا يغطي كلمة "مرحبا بك..." */
-    padding-top: 280px !important;
+    padding-top: 260px !important;
   }
 
   /* 2) نحدث scroll-padding-top بنفس القيمة، حتى لو نقر المستخدم على رابط #home لا يختفي العنوان خلف الهيدر */
@@ -894,4 +894,11 @@ footer {
     direction: ltr !important;
     width: 100% !important;
   }
+}
+/* تأكد من أن القائمة المنسدلة تظهر كاملة على الجوال */
+.nav-links.show {
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
+  z-index: 999 !important;
 }
