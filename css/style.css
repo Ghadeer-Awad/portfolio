@@ -861,7 +861,7 @@ footer {
 
   /* عندما تضاف show عبر toggleMobileMenu، أظهر القائمة عمودياً */
   .nav-links.show {
-    display: flex !important;
+    display: block !important;
     flex-direction: column;
     gap: 12px;
     background: var(--white);
