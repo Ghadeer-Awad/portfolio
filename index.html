@@ -421,6 +421,13 @@
   <script>
   function toggleMobileMenu() {
     document.querySelector('.nav-links').classList.toggle('show');
+	  
+ // إغلاق القائمة عند الضغط على أي عنصر داخلها
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.remove('show');
+  });
+});
   }
 </script>
 </body>
