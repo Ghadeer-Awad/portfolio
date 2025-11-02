@@ -1,434 +1,1053 @@
-
 <!DOCTYPE html>
-<html lang="ار" dir="rtl">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>غدير المطيري | Ghadeer Almutairi</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملف أعمال غدير المطيري | Ghadeer Almutairi Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for professional icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Define Cairo Arabic and Inter fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Cairo:wght@200..1000&display=swap');
+        
+        /* New Color Variables - Deep Indigo/Navy (Indigo-900) for Dark Mode */
+        :root {
+            --primary-light: #2563eb; /* Blue-600 (Light Mode Accent) */
+            --primary-light-rgb: 37, 99, 235; 
+            --secondary-light: #0d9488; /* Teal-600 */
+            --primary-dark: #3730a3; /* Indigo-900 (Deep Indigo Dark Mode Accent) */
+            --primary-dark-rgb: 55, 48, 163; 
+            --bg-dark: #1f2937; /* Gray-800 */
+            --bg-light: #f9fafb; /* Gray-50 */
+        }
+        
+        body {
+            /* Applied NEW Font: Cairo */
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            /* Base text color for Light Mode (Dark Gray for high contrast) */
+            color: #1f2937; /* text-gray-900 equivalent */
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-  <!-- خطوط Google -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link 
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&family=Raleway:wght@400;700&display=swap" 
-    rel="stylesheet"
-  />
+        /* --- FIX: Ensure all main section titles are BLACK in light mode --- */
+        #about h2, #education h2, #skills-certs h2, #projects h2, #contact h2 {
+            color: #111827 !important; /* Pure Black (Tailwind gray-900 equivalent) */
+        }
+        
+        /* --- Dark Mode Overrides --- */
+        .dark-mode {
+            background-color: var(--bg-dark);
+            color: #f9fafb;
+        }
+        
+        /* FIX: Ensure all main section titles are WHITE in dark mode */
+        .dark-mode #about h2, .dark-mode #education h2, .dark-mode #skills-certs h2, .dark-mode #projects h2, .dark-mode #contact h2 {
+            color: #f9fafb !important; /* White (Tailwind gray-50 equivalent) */
+        }
 
-  <!-- أيقونات FontAwesome (للمساعدة إذا احتجنا) -->
-  <script src="https://kit.fontawesome.com/a2d9d5e8c1.js" crossorigin="anonymous"></script>
+        /* General text color mapping for better contrast */
+        .dark-mode .text-gray-900 { color: #f9fafb !important; }
+        /* FIX: Increased contrast for general body text in Dark Mode (from 300 to 200 equivalent) */
+        .dark-mode .text-gray-700 { color: #e5e7eb !important; } /* text-gray-200 equivalent */
+        .dark-mode .text-gray-800 { color: #f3f4f6 !important; } /* text-gray-100 equivalent */
+
+        .dark-mode .bg-white { background-color: #111827 !important; } /* Darker card background */
+        .dark-mode .bg-gray-50 { background-color: #1f2937 !important; }
+        .dark-mode .border-gray-200 { border-color: #374151 !important; }
+        
+        /* Replace Accents in Dark Mode with Deep Indigo */
+        /* FIX 2: Ensure hero cta background transition works in dark mode */
+        .dark-mode #hero a.group {
+            background-image: linear-gradient(to right, var(--primary-dark), #312e81);
+            --tw-gradient-from: #3730a3 !important;
+            --tw-gradient-to: #312e81 !important;
+        }
+        
+        .dark-mode #hero a.group:hover {
+            /* On hover, reverse the gradient to show the hover effect */
+            background-image: linear-gradient(to right, #312e81, var(--primary-dark));
+        }
+
+        .dark-mode [style*="--primary-color: #2563eb;"],
+        .dark-mode .border-blue-500,
+        .dark-mode .text-blue-600 {
+            border-color: var(--primary-dark) !important;
+            color: var(--primary-dark) !important;
+        }
+        .dark-mode .bg-blue-600 { background-color: var(--primary-dark) !important; }
+        .dark-mode .hover\:bg-blue-700:hover { background-color: #312e81 !important; }
+        .dark-mode #contact footer { border-color: var(--primary-dark) !important; }
+        .dark-mode .border-r-4.border-blue-500 { border-color: var(--primary-dark) !important; } 
+        .dark-mode .border-r-4.border-blue-500 .text-blue-500 { color: var(--primary-dark) !important; } 
+        .dark-mode .text-red-500 { color: #f87171 !important; } /* A slightly brighter red in dark mode */
+        
+        /* --- General Contrast Fixes --- */
+        
+        /* Unselected Project Tab Clarity in Light Mode */
+        .project-tab {
+            transition: all 0.3s;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: #374151; /* text-gray-700 equivalent for better contrast in light mode */
+        }
+        .dark-mode .project-tab {
+            color: #d1d5db; 
+        }
+
+        .project-tab.active {
+            font-weight: 600;
+            background-color: #eff6ff; 
+        }
+        .project-tab[data-category="web"].active {
+            color: #2563eb; 
+            border-color: #2563eb;
+        }
+        /* Dark Mode Active States: Uses Deep Indigo */
+        .dark-mode .project-tab.active {
+            border-color: var(--primary-dark); 
+            background-color: #29245f; 
+            color: #f9fafb !important; 
+        }
+
+        /* Hero CTA Fix: Remove inner background and use light text for high contrast on gradient */
+        #hero-cta-span {
+            /* Fix 1: Change text-gray-900 to text-white for clarity in Light Mode */
+            color: white !important; 
+            background-color: transparent !important;
+        }
+        .dark-mode #hero-cta-span {
+             /* Preserve dark mode specific background for visual structure */
+            background-color: #1f2937 !important; 
+        }
+        /* Fix for Inner Span hover effect */
+        .dark-mode #hero a.group:hover #hero-cta-span {
+            background-color: transparent !important;
+        }
+
+        /* --- Floating Particles (FULL SCREEN MOVEMENT) --- */
+        
+        /* Animation: Slow, random float across the entire viewport (2D) */
+        @keyframes slowFloat {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0.5; }
+            25% { transform: translate(25vw, -50vh) rotate(90deg) scale(1.1); opacity: 0.8; }
+            50% { transform: translate(75vw, -100vh) rotate(180deg) scale(0.9); opacity: 0.6; }
+            75% { transform: translate(10vw, -75vh) rotate(270deg) scale(1.1); opacity: 0.9; }
+            100% { transform: translate(0, 0) rotate(360deg) scale(1); opacity: 0.5; }
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            width: 40px; 
+            height: 40px; 
+            background: rgba(var(--primary-light-rgb), 0.3);
+            /* NEW: Use only slowFloat and read duration from specific rules */
+            animation-name: slowFloat;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            /* Start below viewport */
+            bottom: -50px; 
+            left: -50px; 
+            border-radius: 5px; 
+            mix-blend-mode: multiply;
+            opacity: 0.8; 
+            box-shadow: 0 0 10px rgba(var(--primary-light-rgb), 0.5);
+        }
+
+        .dark-mode .particle {
+            background: rgba(var(--primary-dark-rgb), 0.45); 
+            box-shadow: 0 0 10px rgba(var(--primary-dark-rgb), 0.8);
+            mix-blend-mode: screen;
+        }
+
+        /* Specific particle attributes with varying durations and initial positions */
+        .particle:nth-child(1) { left: 25%; width: 60px; height: 60px; animation-duration: 30s; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 10%; width: 25px; height: 25px; animation-duration: 22s; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 70%; width: 70px; height: 70px; animation-duration: 35s; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; width: 50px; height: 50px; animation-duration: 27s; animation-delay: 0s; }
+        .particle:nth-child(5) { left: 65%; width: 35px; height: 35px; animation-duration: 40s; animation-delay: 6s; }
+        .particle:nth-child(6) { left: 75%; width: 90px; height: 90px; animation-duration: 25s; animation-delay: 8s; }
+        .particle:nth-child(7) { left: 35%; width: 20px; height: 20px; animation-duration: 23s; animation-delay: 10s; }
+        .particle:nth-child(8) { left: 80%; width: 80px; height: 80px; animation-duration: 32s; animation-delay: 5s; }
+        .particle:nth-child(9) { left: 50%; width: 45px; height: 45px; animation-duration: 19s; animation-delay: 1s; }
+        .particle:nth-child(10) { left: 15%; width: 75px; height: 75px; animation-duration: 37s; animation-delay: 3s; }
+        
+        /* New styles for the navigation menu (Tabweeb) */
+        #nav-menu {
+            position: absolute;
+            top: 60px; /* Position below the header buttons */
+            right: 0;
+            width: 200px;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            z-index: 40; /* Lower than the fixed buttons */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0.2s;
+        }
+        .dark-mode #nav-menu {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        #nav-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Image Modal Styles */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .image-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1001;
+        }
+
+        /* Center the last image in UI/UX section - FIXED SIZE */
+        #content-uiux .project-card .grid img:last-child {
+            grid-column: 1 / -1;
+            justify-self: center;
+            width: 100%;
+            max-width: 300px; /* نفس حجم الصور الأخرى تقريباً */
+            height: auto;
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
-<body>
-  <!-- =========== الهيدر =========== -->
-  <header>
-    <nav>
-      <h1>غدير المطيري | Ghadeer Almutairi</h1>
+<body class="selection:bg-blue-200 dark:selection:bg-indigo-900">
     
-      <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
-	  <ul class="nav-links">
-        <li><a href="#home">الرئيسية | Home</a></li>
-        <li><a href="#about">عني | About</a></li>
-        <li><a href="#skills">مهاراتي | My Skills</a></li>
-        <li><a href="#projects">مشاريعي | Projects</a></li>
-        <li><a href="#contact">تواصل | Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- =========== القسم الرئيسي (Home) =========== -->
-  <section id="home" class="fade-in">
-    <h2>مرحبًا بك في ملف اعمالي  | Welcome to My Portfolio</h2>
-    <p class="text-ar">أنا غدير المطيري، خريجة نظم معلومات إدارية من جامعة طيبة. شغوفة بالتقنية وإيجاد حلول مبتكرة تربط بين تكنولوجيا المعلومات والإدارة. أمتلك مهارات في Java، تصميم قواعد البيانات، برمجة الويب، وتحليل البيانات. كما أنني حاصلة على شهادة محترف أعمال معتمد في إدارة المشاريع (CBP). أطمح لاستخدام هذه المهارات في تطوير كفاءة الأعمال وتحقيق نتائج فعالة
-    </p>
-    <br>
-    <p class="text-en">I’m Ghadeer Almutairi, a graduate of the Management Information Systems program at Taibah University. I’m passionate about technology and developing innovative solutions that bridge IT and business.
-
-    I have skills in Java programming, database design, web development, and data analysis. I also hold the Certified Business Professional (CBP) certification in Project Management.
-
-    My goal is to apply these skills to improve business efficiency through smart, practical, and technology-driven approaches.
-    </p>
-  </section>
-
-  <!-- =========== قسم عني (About) =========== -->
-  <section id="about" class="slide-in">
-    <h2>عني | About Me</h2>
-    <p class="text-ar">أنا غدير عوض المطيري، خريجة جامعة طيبة – كلية إدارة الأعمال، بتخصص نظم معلومات إدارية، بمعدل جامعي ٤.٨٢ من ٥.
-
-    أؤمن أن العلم لا يتوقف عند حدود الدراسة الجامعية، بل هو بداية لطريق مليء بالتعلّم والنمو، ولهذا أحرص على تطوير نفسي باستمرار من خلال الاطلاع، التدريب، واكتساب المهارات التي تدعم مساري المهني.
-
-    اهتماماتي تتنوع بين تحليل البيانات، إدارة المشاريع، التقنية وتطبيقاتها في بيئة الأعمال، تطوير المهارات الشخصية، والعمل الجماعي. أجد متعة في العمل المنظّم والبحث عن حلول مبتكرة، وأسعى لأن أكون جزءًا من بيئة عمل تطمح للتأثير وصناعة الفرق.
-
-    أطمح لبناء مستقبل مهني يرتكز على المعرفة، الإبداع، والعمل بروح الفريق، وأسعى لأن أكون إضافة حقيقية في أي جهة أعمل معها من خلال شغفي والتزامي المستمر بالتطور
-    </p>
-    <br>
-    <p class="text-en">My name is Ghadeer Awad Almutairi, a recent graduate from Taibah University, College of Business Administration, with a Bachelor’s degree in Management Information Systems and a GPA of 4.82 out of 5.
-
-    I believe that education is only the beginning of a lifelong journey of growth and learning. I am passionate about continuous self-development through training, exploration, and acquiring practical skills that support my professional goals.
-
-    My interests include data analysis, project management, technology in business environments, personal development, and collaborative teamwork. I enjoy working in structured environments and finding creative solutions to challenges.
-
-    I aspire to build a career based on knowledge, innovation, and teamwork, and I am committed to being a valuable addition to any organization I join through my passion, dedication, and eagerness to grow.
-    </p>
-  </section>
-
-  <!-- =========== قسم مهاراتي (Skills) =========== -->
-  <section id="skills" class="fade-in-up">
-    <h2>مهاراتي | My Skills</h2>
-    <ul class="skills-list">
-      <li><span class="text-ar">• لغات البرمجة: Java, PHP, HTML, CSS, JavaScript</span> <span class="text-en">• Programming Languages:Java,PHP, HTML, CSS, JavaScript</span></li>
-      <li><span class="text-ar">• قواعد البيانات: MySQL</span> <span class="text-en">• Databases: MySQL</span></li>
-      <li><span class="text-ar">• تحليل البيانات باستخدام Excel, Power BI, و Tableau</span> <span class="text-en">• Data Analysis with Excel, Power BI, and Tableau</span></li>
-      <li><span class="text-ar">• تحليل النظم وتصميم قواعد البيانات</span> <span class="text-en">• Systems analysis and database design</span></li>
-      <li><span class="text-ar">• تخطيط المشاريع والتنسيق</span> <span class="text-en">• Project planning and coordination</span></li>
-      <li><span class="text-ar">• التوثيق الفني وتحليل المتطلبات</span> <span class="text-en">• Technical documentation and requirements analysis</span></li>
-      <li><span class="text-ar">• التفكير التحليلي والعمل الجماعي</span> <span class="text-en">• Analytical thinking and teamwork</span></li>
-    </ul>
-  </section>
-
-  <!-- =========== قسم المشاريع (Projects) =========== -->
-  <section id="projects">
-    <h2>مشاريعي | My Projects</h2>
-
-    <!-- تبويبات الانتقال إلى كل مشروع -->
-    <div class="project-tabs">
-      <a href="#project1">منصة وثبة</a>
-      <a href="#project2">Tableau</a>
-      <a href="#project3">Power BI</a>
+    <!-- Floating Particles Container -->
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
-    <!-- -- مشروع 1: منصة وثبة -- -->
-    <div id="project1" class="project fade-in-up">
-      <h3>مشروع التخرج: منصة وثبة  |  Wthba Platform</h3>
-      <p class="text-ar">
-        “وثبة” هي منصة رقمية تهدف إلى تعزيز مشاركة المرأة السعودية في الأنشطة والمسابقات الرياضية داخل مجتمع المدينة المنورة. تم تصميم المنصة لتوفير بيئة رقمية متكاملة تتيح للمستخدمات استكشاف رياضات متعددة مثل التنس، السباحة، ركوب الخيل، الفنون القتالية وألعاب القوى، مع إمكانية حجز التجارب المجانية والدورات التدريبية، والوصول إلى المراكز المتخصصة، والدفع الإلكتروني بطريقة آمنة وسهلة.
-      </p>
-      <p class="text-ar">
-        <strong>الخدمات المقدمة عبر المنصة:</strong>
-      </p>
-      <p class="text-ar">• استعراض الرياضات المتاحة والاطلاع على تفاصيل كل نشاط.</p>
-      <p class="text-ar">• حجز الدورات التدريبية والتجارب المجانية.</p>
-      <p class="text-ar">• ارسال استفسار او شكوى عبر المنصة .</p>
-      <p class="text-ar">• عرض مواعيد الفعاليات الرياضية ومحتوى تعليمي متخصص.</p>
-      <p class="text-ar">• تقييم المراكز التدريبية والاطلاع على تقييمات العميلات الاخريات.</p>
-      <p class="text-ar">
-        <strong>شروط التحقق:</strong>
-      </p>
-      <p class="text-ar">لضمان جودة الخدمة وتنظيم العمليات، تم تطبيق مجموعة من شروط التحقق على مختلف العمليات، وتشمل:</p>
-      <p class="text-ar"><strong>1 . عند حجز الخدمة:</strong></p>
-      <p class="text-ar">• ألا يتجاوز عدد الحجوزات 5 عميلات لكل خدمة.</p>
-      <p class="text-ar">• لا يُسمح للعميلة بحجز أكثر من فترة (صباحية أو مسائية) في اليوم نفسه.</p>
-      <p class="text-ar">• تجربة مجانية واحدة فقط لكل مركز تدريبي.</p>
-      <p class="text-ar">• لا يُسمح بالحجز إذا كانت هناك خدمة حالية غير مكتملة في نفس المركز.</p>
-
-      <p class="text-ar"><strong>2 . عند تعديل أو إلغاء الحجز:</strong></p>
-      <p class="text-ar">• لا يمكن التعديل إلى خدمة ممتلئة.</p>
-      <p class="text-ar">• يُمنع التعديل إلى يوم توجد فيه خدمة أخرى لنفس العميلة.</p>
-      <p class="text-ar">• لا يُسمح بتكرار التجربة المجانية.</p>
-      <p class="text-ar">• في حال تعديل الحجز إلى خدمة بسعر أعلى، يجب دفع الفرق فورًا.</p>
-      <p class="text-ar">• في حال تعديل الحجز إلى خدمة بسعر أقل، يتم إرجاع الفرق خلال يومي عمل.</p>
-      <p class="text-ar">• لا يُسمح بإلغاء الحجز قبل أقل من 24 ساعة من موعده.</p>
-
-      <p class="text-ar"><strong>3 . عند إضافة خدمة من قبل المركز التدريبي:</strong></p>
-      <p class="text-ar">• لا يمكن إضافة خدمات بتاريخ سابق.</p>
-      <p class="text-ar">• يجب أن تكون أوقات الخدمة ضمن الفترات المسموحة (7 ص - 12 ظ، أو 4 م - 12 ص).</p>
-      <p class="text-ar">• لا يُسمح بإضافة أكثر من خدمة واحدة لكل فترة في نفس اليوم.</p>
-
-      <p class="text-ar"><strong>4 . عند تعديل خدمة قائمة:</strong></p>
-      <p class="text-ar">• لا يمكن التعديل قبل أقل من 24 ساعة من موعدها.</p>
-      <p class="text-ar">• إذا كانت هناك حجوزات، يسمح فقط بتعديل التاريخ والوقت دون المساس بالسعر أو الوصف أو المدة.</p>
-      <p class="text-ar">• يجب الالتزام بالأوقات المسموحة وعدم تداخلها مع خدمات أخرى في نفس اليوم.</p>
-
-      <p class="text-ar"><strong>5 . عند حذف خدمة:</strong></p>
-      <p class="text-ar">• لا يُسمح بالحذف قبل أقل من 24 ساعة من موعدها.</p>
-      <p class="text-ar">• لا يمكن حذف خدمة تم حجزها من قِبل العميلات.</p>
-
-      <p class="text-ar">
-        <strong>النتائج:</strong>
-      </p>
-      <p class="text-ar">
-        نجحت المنصة في تقديم نموذج أولي فعّال يعزز مشاركة المرأة رياضيًا في المدينة المنورة، من خلال تجربة استخدام منظمة وآمنة، مما يعكس فهمًا دقيقًا للاحتياجات المجتمعية واحترافية في تنفيذ ضوابط الجودة
-      </p>
-      <br>
-      <p class="text-en">
-        “wthba“ is a digital platform designed to promote and support Saudi women’s participation in sports and competitions within the Madinah community. The platform provides a comprehensive and user-friendly experience that enables women to explore different sports such as tennis, swimming, horseback riding, martial arts, and athletics. It facilitates easy access to training centers, booking of free trials and training courses, and secure online payment.
-      </p>
-      <p class="text-en"><strong>Provided Services:</strong></p>
-      <p class="text-en">• Browse and explore different sports with detailed descriptions.</p>
-      <p class="text-en">• Access a list of certified training centers.</p>
-      <p class="text-en">• Book free trials and training sessions.</p>
-      <p class="text-en">• View upcoming events and access educational sports content.</p>
-      <p class="text-en">• Make secure online payments through a safe and easy system.</p>
-      <p class="text-en">
-        <strong>Validation Rules:</strong>
-      </p>
-      <p class="text-en">
-        To ensure service quality and operational consistency, the platform includes a robust set of validation rules:
-      </p>
-      <p class="text-en"><strong>1 . When booking a service:</strong></p>
-      <p class="text-en">• Maximum of 5 clients per service.</p>
-      <p class="text-en">• Users cannot book both morning and evening sessions on the same day.</p>
-      <p class="text-en">• Only one free trial per center.</p>
-      <p class="text-en">• Booking is blocked if there’s an existing uncompleted service in the same center.</p>
-
-      <p class="text-en"><strong>2 . When editing or canceling a booking:</strong></p>
-      <p class="text-en">• Cannot change to a fully booked service.</p>
-      <p class="text-en">• Cannot reschedule to a day with an existing booking for the user.</p>
-      <p class="text-en">• Free trial cannot be repeated.</p>
-      <p class="text-en">• If the new service is more expensive, the user must pay the difference immediately.</p>
-      <p class="text-en">• If cheaper, the refund is issued within two working days.</p>
-      <p class="text-en">• Cancellations are not allowed less than 24 hours before the session.</p>
-
-      <p class="text-en"><strong>3 . When a center adds a service:</strong></p>
-      <p class="text-en">• Cannot add a service with a past date.</p>
-      <p class="text-en">• Service must fall within allowed hours (7 AM–12 PM or 4 PM–12 AM).</p>
-      <p class="text-en">• Only one service per time slot (morning or evening) is allowed per day.</p>
-
-      <p class="text-en"><strong>4 . When editing a service:</strong></p>
-      <p class="text-en">• Editing is not allowed within 24 hours of the session.</p>
-      <p class="text-en">• If there are active bookings, only time and date can be changed (not price, duration, or description).</p>
-      <p class="text-en">• Must adhere to allowed time periods and avoid overlap with other services.</p>
-
-      <p class="text-en"><strong>5 . When deleting a service:</strong></p>
-      <p class="text-en">• Deletion is not allowed within 24 hours of the session.</p>
-      <p class="text-en">• Booked services cannot be deleted.</p>
-
-      <p class="text-en"><strong>Outcomes:</strong></p>
-      <p class="text-en">
-        The platform successfully delivered a functional prototype that supports women’s sports participation in Madinah through a secure and well-structured digital solution, reflecting deep understanding and technical execution.
-      </p>
-      <p class="tools-centered">
-        <strong>الأدوات | Tools:</strong>
-        <p>PHP, MySQL, HTML, CSS, JavaScript</p>
-      </p>
-      <br>
-      <p class="tools-centered">صور توضيحية لبعض اقسام المنصة | Illustrative Images of Some Platform Sections</p>
-
-      <!-- معرض اللابتوبات -->
-      <div class="laptops">
-        <div class="laptop">
-          <img src="images/wthba1.jpeg" alt="Wthba Screenshot 1" onclick="openLightbox(this.src)" />
-        </div>
-        <div class="laptop">
-          <img src="images/wthba2.jpeg" alt="Wthba Screenshot 2" onclick="openLightbox(this.src)" />
-        </div>
-        <div class="laptop">
-          <img src="images/wthba3.jpeg" alt="Wthba Screenshot 3" onclick="openLightbox(this.src)" />
-        </div>
-        <div class="laptop">
-          <img src="images/wthba4.jpeg" alt="Wthba Screenshot 4" onclick="openLightbox(this.src)" />
-        </div>
-        <div class="laptop">
-          <img src="images/wthba5.jpeg" alt="Wthba Screenshot 5" onclick="openLightbox(this.src)" />
-        </div>
-      </div>
-
-      <!-- ملاحظة أسفل الصور (مركّزة) -->
-      <p class="note text-center">
-        انقر على الصورة لمشاهدتها بحجم كامل  |  Click on the image to view it in full size
-      </p>
-
-      <!-- زر GitHub -->
-      <a href="https://github.com/Ghadeer-Awad/wthba" class="btn" target="_blank">
-        رابط المشروع | View on GitHub
-      </a>
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <button class="image-modal-close" id="closeModal">&times;</button>
+        <img id="modalImage" src="" alt="صورة مكبرة">
     </div>
 
-    <!-- -- مشروع 2: تحليل بيانات باستخدام Tableau -- -->
-    <div id="project2" class="project fade-in-up">
-      <h3>تحليل البيانات لدعم القرارات الإدارية في مجالي الإنتاج والتسويق باستخدام Tableau </h3>
-      <h3>Data Analysis for Managerial Decision Support in Production and Marketing Using Tableau</h3>
-      <p class="text-ar">
-        يُعد هذا المشروع جزءًا من متطلبات مقرر نظم دعم الإدارة ضمن تخصص نظم المعلومات الإدارية، ويُعالج مشكلة حقيقية تواجه إحدى المنشآت الصناعية، والمتمثلة في ارتفاع معدلات العيوب خلال عمليات الإنتاج.
-
-        تؤدي هذه العيوب إلى انخفاض جودة المنتجات، وزيادة تكاليف الصيانة، وانخفاض كفاءة الأداء التشغيلي.
-
-        تم استخدام أداة Tableau لتحليل بيانات الإنتاج بهدف تحديد العوامل المؤثرة في حدوث العيوب، من خلال دراسة العلاقة بين العيوب وكل من:
-        <p>
-          نوع الوردية – نوع المنتج – نوع الآلة – توقيت الإنتاج 
-        </p>
-      </p>
-      <p class="text-ar">
-        وقد تم تصميم لوحة معلومات تفاعلية (Dashboard) تساعد متخذي القرار على فهم الأنماط واتخاذ إجراءات لتحسين جودة الإنتاج.
-
-        ساعدت نتائج التحليل في تقديم توصيات عملية لتقليل العيوب من خلال تحسين توزيع الورديات، ومراقبة أداء الآلات، وتحسين توقيت الإنتاج.
-      </p>
-      <br>
-      <p class="text-en">
-        This project was completed as part of the Decision Support Systems course in the Management Information Systems program. It addresses a real-world issue faced by a manufacturing facility: a noticeable increase in defects during production processes.
-
-        These defects lead to lower product quality, increased maintenance costs, and reduced operational efficiency.
-
-        The project utilized Tableau to analyze production data and identify key factors contributing to the defects by examining their relationship with:
-        <p>
-          Shift type – Product type – Machine type – Production timing 
-        </p>
-      </p>
-      <p class="text-en">
-        An interactive dashboard was developed to support decision-makers in identifying patterns and taking actions to enhance product quality.
-
-        The analysis provided practical recommendations to reduce defect rates by optimizing shift scheduling, monitoring machine performance, and improving production timing.
-      </p>
-
-      <!-- معرض صور المشروع الثاني -->
-      <div class="laptops">
-        <div class="laptop">
-          <img src="images/tableau1.png" alt="Tableau Screenshot 1" onclick="openLightbox(this.src)" />
+    <!-- Fixed Header Buttons (Toggle Menu, Dark Mode, Language) -->
+    <div class="fixed top-4 w-full z-50 flex justify-between px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto right-0 left-0">
+        
+        <!-- Right side: Navigation Toggle (Tabweeb) -->
+        <div class="flex space-x-2 rtl:space-x-reverse relative">
+            <button id="nav-toggle" class="p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-full shadow-lg transition duration-300 hover:scale-105" title="Toggle Navigation Menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+            
+            <!-- Navigation Menu (The Tabweeb Content) -->
+            <div id="nav-menu" class="absolute top-12 right-0 origin-top-right w-48 text-right bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700">
+                <a href="#about" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg transition" onclick="toggleNavMenu()">
+                    <i data-lucide="user" class="w-4 h-4 inline-block me-2 rtl:ml-2"></i>
+                    <span id="nav-about">من أنا</span>
+                </a>
+                <a href="#projects" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleNavMenu()">
+                    <i data-lucide="folder-kanban" class="w-4 h-4 inline-block me-2 rtl:ml-2"></i>
+                    <span id="nav-projects">المشاريع</span>
+                </a>
+                <a href="#contact" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg transition" onclick="toggleNavMenu()">
+                    <i data-lucide="send" class="w-4 h-4 inline-block me-2 rtl:ml-2"></i>
+                    <span id="nav-contact">تواصل معي</span>
+                </a>
+            </div>
         </div>
-      </div>
-      <p class="note text-center">
-        انقر على الصورة لمشاهدتها بحجم كامل  |  Click on the image to view it in full size
-      </p>
 
-      <a href="https://public.tableau.com/app/profile/ghadeer.almutiri/viz/4-F7/Dashboard1" class="btn" target="_blank">
-        رابط لوحة البيانات | View on dashboard
-      </a>
-    </div>
-
-    <!-- -- مشروع 3: تحليل بيانات باستخدام Power BI -- -->
-    <div id="project3" class="project fade-in-up">
-      <h3>تحليل بيانات باستخدام Power BI  </h3>
-      <h3>Data Analysis with Power BI</h3>
-      <p class="text-ar">
-        مشروع مستقل لتحليل بيانات المبيعات وإنشاء تقارير تفاعلية باستخدام Power BI.
-      </p>
-      <p class="text-ar">
-        <strong>اسم المشروع:</strong> تحليل أداء المبيعات والتكاليف لشركة تجزئة
-      </p>
-      <p class="text-ar">
-        <strong>هدف المشروع:</strong> بناء لوحة معلومات تفاعلية تساعد على تحليل الأداء المالي والتشغيلي للشركة، بهدف دعم اتخاذ القرار بناءً على البيانات.
-      </p>
-      <p class="text-ar">
-        <strong>الأدوات المستخدمة:</strong> Microsoft Excel – Power BI Desktop – DAX
-      </p>
-      <ul class="skills-list">
-        <li><span class="text-ar">التحليلات:</span></li>
-        <li><span class="text-ar">1. تحليل الإيرادات الشهرية</span></li>
-        <li><span class="text-ar">2. تحليل الربح حسب المنتج</span></li>
-        <li><span class="text-ar">3. تحليل الإيرادات حسب فئة العميل</span></li>
-        <li><span class="text-ar">4. تحليل المصروفات الشهرية</span></li>
-        <li><span class="text-ar">5. تحليل الإيرادات حسب المنطقة</span></li>
-        <li><span class="text-ar">6. مؤشرات الأداء (KPI): الإيرادات، الربح، المصروفات، صافي الربح، الكمية</span></li>
-      </ul>
-      <p class="text-ar">
-        <strong>النتائج:</strong> لوحة تحكم تفاعلية تعرض الأداء المالي بطريقة مرئية مبسطة مع إمكانية تحليل العوامل المؤثرة في الربح والمصروفات.
-      </p>
-      <br>
-      <p class="text-en">Independent Project – Sales Data Analysis using Power BI</p>
-      <p class="text-en"><strong>Project Title:</strong> Sales and Expenses Performance Analysis for a Retail Company</p>
-      <p class="text-en"><strong>Project Objective:</strong> To build an interactive dashboard that helps analyze the financial and operational performance of a retail business and support data-driven decision-making.</p>
-      <p class="text-en"><strong>Tools Used:</strong> Microsoft Excel – Power BI Desktop – DAX</p>
-      <p class="text-en">Key Analyses:</p>
-      <p class="text-en">1. Monthly Revenue Analysis</p>
-      <p class="text-en">2. Profit by Product</p>
-      <p class="text-en">3. Revenue by Customer Category</p>
-      <p class="text-en">4. Monthly Expenses Analysis</p>
-      <p class="text-en">5. Revenue by Region</p>
-      <p class="text-en">6. KPI Cards: Revenue, Profit, Expenses, Net Profit, Quantity</p>
-      <p class="text-en">
-        <strong>Result:</strong> An interactive dashboard that presents financial performance in a simplified visual format with insights into profit and expense drivers.
-      </p>
-
-      <!-- معرض صور المشروع الثالث -->
-      <div class="laptops">
-        <div class="laptop">
-          <img src="images/powerbi1.png" alt="Power BI Screenshot 1" onclick="openLightbox(this.src)" />
+        <!-- Left side: Language & Dark Mode Toggles -->
+        <div class="flex space-x-2 rtl:space-x-reverse">
+            <button id="lang-toggle" class="p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-full shadow-lg transition duration-300 hover:scale-105" title="Toggle Language">
+                <i data-lucide="languages" class="w-6 h-6"></i>
+            </button>
+            <button id="dark-mode-toggle" class="p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-full shadow-lg transition duration-300 hover:scale-105" title="Toggle Dark Mode">
+                <i data-lucide="moon" class="w-6 h-6"></i>
+            </button>
         </div>
-      </div>
-      <p class="note text-center">
-        انقر على الصورة لمشاهدتها بحجم كامل  |  Click on the image to view it in full size
-      </p>
-
-      <a href="files/مشروع power bi.pbix" class="btn" target="_blank">
-        ملف البيانات | View on power Bi
-      </a>
     </div>
-  </section>
 
-  <!-- =========== Lightbox لعرض الصور =========== -->
-  <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="عرض الصورة" />
-  </div>
+    <!-- Main Content Wrapper -->
+    <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
 
-  <!-- =========== قسم التواصل (Contact) =========== -->
-  <section id="contact">
-    <h2>تواصل معي | Contact Me</h2>
-    <div class="contact-widgets">
+        <!-- 1. Header & Hero Section -->
+        <header id="hero" class="text-center py-20 md:py-32 mb-10 reveal">
+            <h1 id="header-name" class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-2 transition-all duration-500 transform translate-y-0 opacity-100" style="color: var(--primary-light);">
+                غدير المطيري
+            </h1>
+            <p id="header-welcome" class="text-xl md:text-2xl text-gray-700 dark:text-gray-300">
+                مرحباً بكم في ملف أعمالي
+            </p>
+            <div class="mt-8 flex justify-center space-x-4 rtl:space-x-reverse">
+                <!-- Explore Projects Button (The only CTA now) -->
+                <a href="#projects" class="group relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-600 to-cyan-500 group-hover:from-blue-600 group-hover:to-cyan-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-indigo-900 transition duration-300 transform hover:scale-105">
+                    <span id="hero-cta-span" class="relative px-5 py-2.5 transition-all ease-in duration-75 text-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                        استكشاف المشاريع
+                    </span>
+                </a>
+            </div>
+        </header>
 
-      <!-- LinkedIn Button -->
-      <button
-        onclick="window.open('http://linkedin.com/in/ghadeer-awad', '_blank')"
-        class="linkedin-btn group"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1.1em"
-          viewBox="0 0 512 512"
-          stroke-width="0"
-          fill="currentColor"
-          stroke="currentColor"
-          class="icon"
-        >
-          <path
-            d="M444.17 32H70.28C49.85 32 32 46.7 32 66.89v374.72C32 461.91 49.85 480 70.28 480h373.78c20.54 0 35.94-18.21 35.94-38.39V66.89C480.12 46.7 464.6 32 444.17 32zm-273.3 373.43h-64.18V205.88h64.18zM141 175.54h-.46c-20.54 0-33.84-15.29-33.84-34.43 0-19.49 13.65-34.42 34.65-34.42s33.85 14.82 34.31 34.42c-.01 19.14-13.31 34.43-34.66 34.43zm264.43 229.89h-64.18V296.32c0-26.14-9.34-44-32.56-44-17.74 0-28.24 12-32.91 23.69-1.75 4.2-2.22 9.92-2.22 15.76v113.66h-64.18V205.88h64.18v27.77c9.34-13.3 23.93-32.44 57.88-32.44 42.13 0 74 27.77 74 87.64z"
-          ></path>
-        </svg>
-        Ghadeer Almutairi 
-      </button>
+        <!-- 2. About Me Section -->
+        <section id="about" class="mb-20 pt-10 reveal">
+            <!-- Title now explicitly dark black via custom CSS rule -->
+            <h2 id="about-title" class="text-3xl font-bold border-b-4 pb-2 mb-6 inline-block text-gray-900 dark:text-gray-100 transition duration-500" style="border-color: var(--secondary-light);">
+                من أنا
+            </h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <p id="about-description" class="text-lg text-gray-900 dark:text-gray-300 leading-relaxed transition-all duration-500">
+                    خريجة نظم المعلومات الإدارية، أعمل على تحليل البيانات وإدارة المشاريع وتطوير الويب وإدارة قواعد البيانات. أسعى إلى توظيف مهاراتي التقنية والإدارية في بناء حلول رقمية تساهم في تحسين كفاءة العمل ودعم اتخاذ القرار.
+                </p>
+            </div>
+        </section>
+        
+        <!-- 3. Education Section -->
+        <section id="education" class="mb-20 pt-10 reveal">
+            <!-- Title now explicitly dark black via custom CSS rule -->
+            <h2 id="education-title" class="text-3xl font-bold border-b-4 pb-2 mb-6 inline-block text-gray-900 dark:text-gray-100" style="border-color: var(--secondary-light);">
+                التعليم
+            </h2>
+            <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition duration-300">
+                <h3 id="edu-uni" class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
+                    جامعة طيبة
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-gray-900 dark:text-gray-100">
+                    <div class="flex items-center">
+                        <i data-lucide="bookmark" class="w-5 h-5 me-2 text-blue-500 dark:text-indigo-500"></i>
+                        <span id="edu-major">تخصص نظم معلومات ادارية</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="star" class="w-5 h-5 me-2 text-yellow-500"></i>
+                        <span id="edu-gpa">معدل: 4.82</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="award" class="w-5 h-5 me-2 text-green-500"></i>
+                        <span id="edu-honors">مرتبة الشرف الأولى</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <!-- Email Tooltip -->
-      <div class="tooltip-container">
-        <span class="text">@</span>
-        <div class="tooltip">ghadeer.awad305@gmail.com</div>
-        <a href="mailto:ghadeer.awad305@gmail.com" class="overlay-link"></a>
-      </div>
+        <!-- 4. Skills & Certifications Section (Combined) -->
+        <section id="skills-certs" class="mb-20 pt-10 reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Skills -->
+                <div>
+                    <!-- Title now explicitly dark black via custom CSS rule -->
+                    <h2 id="skills-title" class="text-3xl font-bold border-b-4 pb-2 mb-6 inline-block text-gray-900 dark:text-gray-100" style="border-color: var(--secondary-light);">
+                        المهارات
+                    </h2>
+                    <ul class="space-y-3">
+                        <li class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md border-r-4 border-blue-500 transition hover:translate-x-1 rtl:hover:-translate-x-1 duration-200 dark:border-r-4 dark:border-indigo-900">
+                            <i data-lucide="bar-chart-3" class="w-5 h-5 me-3 text-blue-500 dark:text-indigo-500 flex-shrink-0"></i>
+                            <span id="skill-1" class="text-gray-900 dark:text-gray-100">تحليل البيانات</span>
+                        </li>
+                        <li class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md border-r-4 border-blue-500 transition hover:translate-x-1 rtl:hover:-translate-x-1 duration-200 dark:border-r-4 dark:border-indigo-900">
+                            <i data-lucide="clipboard-list" class="w-5 h-5 me-3 text-blue-500 dark:text-indigo-500 flex-shrink-0"></i>
+                            <span id="skill-2" class="text-gray-900 dark:text-gray-100">ادارة المشاريع</span>
+                        </li>
+                        <li class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md border-r-4 border-blue-500 transition hover:translate-x-1 rtl:hover:-translate-x-1 duration-200 dark:border-r-4 dark:border-indigo-900">
+                            <i data-lucide="database" class="w-5 h-5 me-3 text-blue-500 dark:text-indigo-500 flex-shrink-0"></i>
+                            <span id="skill-3" class="text-gray-900 dark:text-gray-100">ادارة قواعد البيانات</span>
+                        </li>
+                        <li class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md border-r-4 border-blue-500 transition hover:translate-x-1 rtl:hover:-translate-x-1 duration-200 dark:border-r-4 dark:border-indigo-900">
+                            <i data-lucide="layout-grid" class="w-5 h-5 me-3 text-blue-500 dark:text-indigo-500 flex-shrink-0"></i>
+                            <span id="skill-4" class="text-gray-900 dark:text-gray-100">تصميم UI/UX</span>
+                        </li>
+                        <li class="flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-md border-r-4 border-blue-500 transition hover:translate-x-1 rtl:hover:-translate-x-1 duration-200 dark:border-r-4 dark:border-indigo-900">
+                            <i data-lucide="code" class="w-5 h-5 me-3 text-blue-500 dark:text-indigo-500 flex-shrink-0"></i>
+                            <span id="skill-5" class="text-gray-900 dark:text-gray-100">تطوير الويب</span>
+                        </li>
+                    </ul>
+                </div>
 
-      <!-- Phone Button -->
-      <button
-        onclick="window.location.href='tel:+966500365429'"
-        class="phone-btn group"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg"
-             width="1em"
-             height="1.1em"
-             viewBox="0 0 512 512"
-             fill="currentColor"
-             class="icon">
-          <path d="M493.4 24.6l-104-24c-11.3-2.6-22.9 2.2-30.1 11.3l-56 72c-5.3 6.9-6.7 16-3.7 24.2l36 96c-34.9 69.9-90.7 125.7-160.6 160.6l-96-36c-8.2-3-17.3-1.6-24.2 3.7l-72 56c-9.1 7.2-13.9 18.8-11.3 30.1l24 104c2.4 10.4 11.5 17.8 22.2 17.8 256.1 0 464-207.9 464-464 0-10.7-7.4-19.8-17.8-22.2z"/>
-        </svg>
-        0500365429
-      </button>
+                <!-- Certifications -->
+                <div>
+                    <!-- Title now explicitly dark black via custom CSS rule -->
+                    <h2 id="certs-title" class="text-3xl font-bold border-b-4 pb-2 mb-6 inline-block text-gray-900 dark:text-gray-100" style="border-color: var(--secondary-light);">
+                        الشهادات والدورات
+                    </h2>
+                    <ul class="space-y-4">
+                        <li class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-teal-500 transition hover:shadow-xl duration-200">
+                            <p id="cert-1" class="font-medium text-gray-900 dark:text-gray-100">شهادة محترف اعمال معتمد في ادارة المشاريع (CBP-PM) من IBTA</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 italic">IBTA</p>
+                        </li>
+                        <li class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-teal-500 transition hover:shadow-xl duration-200">
+                            <p id="cert-2" class="font-medium text-gray-900 dark:text-gray-100">مسار تحليل البيانات من منصة سطر</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 italic">منصة سطر</p>
+                        </li>
+                        <li class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-teal-500 transition hover:shadow-xl duration-200">
+                            <p id="cert-3" class="font-medium text-gray-900 dark:text-gray-100">مسار الذكاء الاصطناعي من Simplilearn</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 italic">Simplilearn</p>
+                        </li>
+                        <li class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-teal-500 transition hover:shadow-xl duration-200">
+                            <p id="cert-4" class="font-medium text-gray-900 dark:text-gray-100">مسار تطوير البرمجيات من Simplilearn</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 italic">Simplilearn</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Projects Section -->
+        <section id="projects" class="mb-20 pt-10 reveal">
+            <!-- Title now explicitly dark black via custom CSS rule -->
+            <h2 id="projects-title" class="text-3xl font-bold border-b-4 pb-2 mb-6 inline-block text-gray-900 dark:text-gray-100" style="border-color: var(--secondary-light);">
+                المشاريع
+            </h2>
+
+            <!-- Project Category Tabs -->
+            <div class="flex flex-wrap justify-center border-b border-gray-200 dark:border-gray-700 mb-8 p-1 bg-gray-50 dark:bg-gray-900 rounded-xl shadow-inner">
+                <div id="tab-web" data-category="web" class="project-tab flex-1 text-center py-3 px-4 rounded-lg active">
+                    <i data-lucide="code-square" class="w-5 h-5 inline-block me-1"></i>
+                    <span id="tab-title-web">تطوير المواقع</span>
+                </div>
+                <div id="tab-data" data-category="data" class="project-tab flex-1 text-center py-3 px-4 rounded-lg">
+                    <i data-lucide="pie-chart" class="w-5 h-5 inline-block me-1"></i>
+                    <span id="tab-title-data">تحليل البيانات</span>
+                </div>
+                <div id="tab-uiux" data-category="uiux" class="project-tab flex-1 text-center py-3 px-4 rounded-lg">
+                    <i data-lucide="layout-template" class="w-5 h-5 inline-block me-1"></i>
+                    <span id="tab-title-uiux">تصميم UI/UX</span>
+                </div>
+            </div>
+
+            <!-- Project Content -->
+            <div id="projects-container">
+                <!-- Web Development Content -->
+                <div id="content-web" class="project-content space-y-12">
+                    <!-- Project 1: Wthba Platform -->
+                    <div class="project-card p-6 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 transition duration-300 hover:shadow-2xl">
+                        <h3 id="project-web-1-title" class="text-2xl font-bold mb-4 text-blue-600 dark:text-indigo-500">منصة وثبة (Wthba Platform)</h3>
+                        <p id="project-web-1-desc" class="text-gray-800 dark:text-gray-300 mb-6 leading-relaxed">
+                            "وثبة" هي منصة رقمية تهدف إلى تعزيز مشاركة المرأة السعودية في الأنشطة والمسابقات الرياضية داخل مجتمع المدينة المنورة. تم تصميم المنصة لتوفير بيئة رقمية متكاملة تتيح للمستخدمات استكشاف رياضات متعددة مثل التنس، السباحة، ركوب الخيل، الفنون القتالية وألعاب القوى، مع إمكانية حجز التجارب المجانية والدورات التدريبية، والوصول إلى المراكز المتخصصة، والدفع الإلكتروني بطريقة آمنة وسهلة.
+                        </p>
+
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+                            <!-- Image Placeholders (5 Images) -->
+                            <img src="images/wthba1.JPEG" alt="الصفحة الرئيسية" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/wthba2.JPEG" alt="صفحة تسجيل الدخول" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/wthba3.JPEG" alt="صفحة الخدمات" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/wthba4.JPEG" alt="صفحة ادارة الخدمات" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/wthba5.JPEG" alt="صفحة ادارة الحجوزات" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                        </div>
+                        <p id="project-web-1-extra" class="p-4 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-700 dark:text-gray-400 italic mb-6">
+                            انقر على الصورة لمشاهدتها بحجم كامل
+                        </p>
+                        <a id="project-web-1-link" href="https://github.com/Ghadeer-Awad/wthba" target="_blank" class="inline-flex items-center px-5 py-2.5 font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 dark:bg-indigo-900 dark:hover:bg-indigo-950 transition duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
+                            <i data-lucide="link" class="w-5 h-5 me-2 rtl:ml-2"></i>
+                            <span id="project-web-1-btn">عرض المشروع الأصلي (GitHub)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Data Analysis Content -->
+                <div id="content-data" class="project-content space-y-12 hidden">
+                    <!-- Project 1: Tableau Analysis -->
+                    <div class="project-card p-6 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 transition duration-300 hover:shadow-2xl">
+                        <h3 id="project-data-1-title" class="text-2xl font-bold mb-4 text-teal-600">تحليل البيانات لدعم القرارات الإدارية في مجالي الإنتاج والتسويق باستخدام Tableau</h3>
+                        <p id="project-data-1-desc" class="text-gray-800 dark:text-gray-300 mb-6 leading-relaxed">
+                            يُعد هذا المشروع جزءًا من متطلبات مقرر نظم دعم الإدارة ضمن تخصص نظم المعلومات الإدارية، ويُعالج مشكلة حقيقية تواجه إحدى المنشآت الصناعية، والمتمثلة في ارتفاع معدلات العيوب خلال عمليات الإنتاج. تؤدي هذه العيوب إلى انخفاض جودة المنتجات، وزيادة تكاليف الصيانة، وانخفاض كفاءة الأداء التشغيلي. تم استخدام أداة Tableau لتحليل بيانات الإنتاج بهدف تحديد العوامل المؤثرة في حدوث العيوب، من خلال دراسة العلاقة بين العيوب وكل من: نوع الوردية – نوع المنتج – نوع الآلة – توقيت الإنتاج. وقد تم تصميم لوحة معلومات تفاعلية (Dashboard) تساعد متخذي القرار على فهم الأنماط واتخاذ إجراءات لتحسين جودة الإنتاج. ساعدت نتائج التحليل في تقديم توصيات عملية لتقليل العيوب من خلال تحسين توزيع الورديات، ومراقبة أداء الآلات، وتحسين توقيت الإنتاج.
+                        </p>
+
+                        <div class="mb-6">
+                            <!-- Image Placeholder (1 Image - Tableau Dashboard) -->
+                            <div class="image-placeholder bg-gray-100 dark:bg-gray-700 rounded-lg h-60 w-full flex items-center justify-center shadow-inner cursor-pointer" style="background-image: url('images/tableau1.PNG'); background-size: cover; background-position: center;" onclick="openImageModal('images/tableau1.PNG', 'لوحة Tableau')">
+                            </div>
+                        </div>
+                        <p id="project-data-1-extra" class="p-4 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-700 dark:text-gray-400 italic mb-6">
+                            انقر على الصورة لمشاهدتها بحجم كامل
+                        </p>
+                        <a id="project-data-1-link" href="https://public.tableau.com/app/profile/ghadeer.almutiri/viz/4-F7/Dashboard1" target="_blank" class="inline-flex items-center px-5 py-2.5 font-medium rounded-lg text-white bg-teal-600 hover:bg-teal-700 transition duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
+                            <i data-lucide="external-link" class="w-5 h-5 me-2 rtl:ml-2"></i>
+                            <span id="project-data-1-btn">عرض المشروع الأصلي (Tableau Public)</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Project 2: Power BI Analysis -->
+                    <div class="project-card p-6 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 transition duration-300 hover:shadow-2xl">
+                        <h3 id="project-data-2-title" class="text-2xl font-bold mb-4 text-teal-600">تحليل أداء المبيعات والتكاليف لشركة تجزئة باستخدام Power BI</h3>
+                        <p id="project-data-2-desc" class="text-gray-800 dark:text-gray-300 mb-6 leading-relaxed">
+                            مشروع لتحليل بيانات المبيعات والتكاليف وبناء لوحة معلومات تفاعلية في Power BI، توضح مؤشرات الأداء المالي والتشغيلي للشركة مثل الإيرادات، الربح، والمصروفات، مع إمكانية استكشاف الأداء حسب المنتجات والعملاء والمناطق لدعم اتخاذ القرارات.
+                        </p>
+
+                        <div class="mb-6">
+                            <!-- Image Placeholder (1 Image - Power BI Dashboard) -->
+                            <div class="image-placeholder bg-gray-100 dark:bg-gray-700 rounded-lg h-60 w-full flex items-center justify-center shadow-inner cursor-pointer" style="background-image: url('images/powerbi1.PNG'); background-size: cover; background-position: center;" onclick="openImageModal('images/powerbi1.PNG', 'لوحة Power BI')">
+                            </div>
+                        </div>
+                        <p id="project-data-2-extra" class="p-4 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-700 dark:text-gray-400 italic mb-6">
+                            انقر على الصورة لمشاهدتها بحجم كامل
+                        </p>
+                        <a id="project-data-2-link" href="files/مشروع power bi.pbix"  target="_blank" class="inline-flex items-center px-5 py-2.5 font-medium rounded-lg text-white bg-teal-600 hover:bg-teal-700 transition duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
+                            <i data-lucide="download" class="w-5 h-5 me-2 rtl:ml-2"></i>
+                            <span id="project-data-2-btn">تنزيل ملف Power BI (PBIX)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- UI/UX Design Content -->
+                <div id="content-uiux" class="project-content space-y-12 hidden">
+                    <!-- Placeholder Project -->
+                    <div class="project-card p-6 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 transition duration-300 hover:shadow-2xl">
+                        <h3 id="project-uiux-1-title" class="text-2xl font-bold mb-4 text-amber-600">تصميم واجهات UI/UX لمشروع التوثيق الإلكتروني – بنك الراجحي</h3>
+                        <p id="project-uiux-1-desc" class="text-gray-800 dark:text-gray-300 mb-6 leading-relaxed">
+                            خلال تدريبي التعاوني في بنك الراجحي، طوّرت مشروع «التوثيق الإلكتروني» الذي يحوّل عملية التوقيع التقليدية إلى رقمية. يتيح النظام للعملاء رفع تواقيعهم الإلكترونية بأمان عبر تطبيق البنك، مع ربطه بمنصة نفاذ للتحقق من الهوية. صممت واجهات UI/UX تركّز على البساطة والأمان وسلاسة تجربة المستخدم.
+                        </p>
+
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+                            <!-- Image Placeholders (Generic) -->
+                            <img src="images/واجهة بدء التوثيق.PNG" alt="واجهة بدء التوثيق" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/واجهة رفع التوقيع.PNG" alt="واجهة رفع التوقيع" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/واجهة معاينة التوقيع.PNG" alt="واجهة معاينة التوقيع" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/واجهة التحقق من نفاذ.PNG" alt="واجهة التحقق من نفاذ" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/واجهة التاكيد.PNG" alt="واجهة التاكيد" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                            <img src="images/واجهة تعذر.PNG" alt="واجهة تعذر" class="cursor-pointer rounded-lg shadow-md hover:shadow-xl transition duration-300" onclick="openImageModal(this.src, this.alt)">
+                        </div>
+                        <p id="project-uiux-1-extra" class="p-4 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-700 dark:text-gray-400 italic mb-6">
+                            انقر على الصورة لمشاهدتها بحجم كامل
+                        </p>
+                        <a id="project-uiux-1-link" href="https://www.figma.com/design/SeygU9BizV4p9g5pWZfDQJ/%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%88%D8%A7%D8%AC%D9%87%D8%A7%D8%AA-%D9%86%D8%B8%D8%A7%D9%85-%D8%A7%D9%84%D8%AA%D9%88%D8%AB%D9%8A%D9%82-%D8%A7%D9%84%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A?m=auto&t=c7iNXcT0r5yXu1Og-6" target="_blank" class="inline-flex items-center px-5 py-2.5 font-medium rounded-lg text-white bg-amber-600 hover:bg-amber-700 transition duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
+                            <i data-lucide="palette" class="w-5 h-5 me-2 rtl:ml-2"></i>
+                            <span id="project-uiux-1-btn">عرض المشروع الأصلي (Figma)</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. Contact Section (Footer) -->
+        <footer id="contact" class="pt-10 pb-8 mt-10 border-t-4" style="border-color: var(--primary-light);">
+            <!-- Title is centered and now explicitly dark black via custom CSS rule -->
+            <h2 id="contact-title" class="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">
+                تواصل معي
+            </h2>
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-10">
+                
+                <!-- Email -->
+                <a id="contact-email-link" href="mailto:ghadeer.awad305@gmail.com" class="contact-item flex flex-col items-center p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 transform hover:scale-105 group">
+                    <i data-lucide="mail" class="w-8 h-8 text-indigo-500 mb-2 group-hover:text-indigo-600"></i>
+                    <span id="contact-email-label" class="text-sm font-medium text-gray-900 dark:text-gray-100">البريد الإلكتروني</span>
+                    <span class="text-xs text-gray-600 dark:text-gray-400">ghadeer.awad305@gmail.com</span>
+                </a>
+                
+                <!-- Phone -->
+                <a id="contact-phone-link" href="tel:+966500365429" class="contact-item flex flex-col items-center p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 transform hover:scale-105 group">
+                    <i data-lucide="phone" class="w-8 h-8 text-green-500 mb-2 group-hover:text-green-600"></i>
+                    <span id="contact-phone-label" class="text-sm font-medium text-gray-900 dark:text-gray-100">الهاتف</span>
+                    <span class="text-xs text-gray-600 dark:text-gray-400">0500365429</span>
+                </a>
+                
+                <!-- LinkedIn -->
+                <a id="contact-linkedin-link" href="http://linkedin.com/in/ghadeer-awad" target="_blank" class="contact-item flex flex-col items-center p-4 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 transform hover:scale-105 group">
+                    <i data-lucide="linkedin" class="w-8 h-8 text-blue-700 mb-2 group-hover:text-blue-800"></i>
+                    <span id="contact-linkedin-label" class="text-sm font-medium text-gray-900 dark:text-gray-100">لينكد إن</span>
+                    <span class="text-xs text-gray-600 dark:text-gray-400">/in/ghadeer-awad</span>
+                </a>
+
+            </div>
+            <p id="footer-text" class="text-center text-sm text-gray-500 dark:text-gray-400 mt-8">
+                صمم بـ <i data-lucide="heart" class="w-3 h-3 inline text-red-500"></i> بواسطة غدير المطيري.
+            </p>
+        </footer>
+
+    </main>
+    
+    <!-- Custom Message Box for alerts (replaces alert()) -->
+    <div id="custom-message" class="fixed inset-0 bg-gray-900 bg-opacity-50 dark:bg-opacity-75 hidden items-center justify-center p-4 z-[999]">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-2xl max-w-sm w-full transform scale-95 transition-all duration-300">
+            <h4 id="msg-title" class="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100"></h4>
+            <p id="msg-content" class="text-gray-700 dark:text-gray-300 mb-4"></p>
+            <button onclick="hideMessage()" class="w-full py-2 bg-blue-600 dark:bg-indigo-900 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-indigo-950 transition duration-200">
+                <span id="msg-close-btn">إغلاق</span>
+            </button>
+        </div>
     </div>
-  </section>
 
-  <!-- =========== الفوتر =========== -->
-  <footer>
-    <p>©️ 2025 غدير المطيري | Designed by Ghadeer Almutairi</p>
-  </footer>
+    <script>
+        // Initialize variables
+        let currentLang = 'ar';
+        let isDarkMode = false;
 
-  <!-- السكربت الخاص بالـLightbox -->
-  <script>
-    function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').style.display = 'flex';
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
-    }
-  </script>
-  
-  <script>
-  function toggleMobileMenu() {
-    document.querySelector('.nav-links').classList.toggle('show');
-	  
- // إغلاق القائمة عند الضغط على أي عنصر داخلها
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.remove('show');
-  });
-});
-  }
-</script>
+        // DOM Elements
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const darkModeToggleBtn = document.getElementById('dark-mode-toggle');
+        const navToggleBtn = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const body = document.body;
+
+        // Data translations
+        const translations = {
+            ar: {
+                // Header
+                headerName: "غدير المطيري",
+                headerWelcome: "مرحباً بكم في ملف أعمالي",
+                heroCta: "استكشاف المشاريع",
+                // Navigation
+                navAbout: "من أنا",
+                navProjects: "المشاريع",
+                navContact: "تواصل معي",
+                // About
+                aboutTitle: "من أنا",
+                aboutDescription: "خريجة نظم المعلومات الإدارية، أعمل على تحليل البيانات وإدارة المشاريع وتطوير الويب وإدارة قواعد البيانات. أسعى إلى توظيف مهاراتي التقنية والإدارية في بناء حلول رقمية تساهم في تحسين كفاءة العمل ودعم اتخاذ القرار.",
+                // Education
+                educationTitle: "التعليم",
+                eduUni: "جامعة طيبة",
+                eduMajor: "تخصص نظم معلومات ادارية",
+                eduGpa: "معدل: 4.82",
+                eduHonors: "مرتبة الشرف الأولى",
+                // Skills
+                skillsTitle: "المهارات",
+                skill1: "تحليل البيانات",
+                skill2: "ادارة المشاريع",
+                skill3: "ادارة قواعد البيانات",
+                skill4: "تصميم UI/UX",
+                skill5: "تطوير الويب",
+                // Certs
+                certsTitle: "الشهادات والدورات",
+                cert1: "شهادة محترف اعمال معتمد في ادارة المشاريع (CBP-PM) من IBTA",
+                cert2: "مسار تحليل البيانات من منصة سطر",
+                cert3: "مسار الذكاء الاصطناعي من Simplilearn",
+                cert4: "مسار تطوير البرمجيات من Simplilearn",
+                // Projects
+                projectsTitle: "المشاريع",
+                tabTitleWeb: "تطوير المواقع",
+                tabTitleData: "تحليل البيانات",
+                tabTitleUiux: "تصميم UI/UX",
+                // Project Web 1
+                projWeb1Title: "منصة وثبة (Wthba Platform)",
+                projWeb1Desc: `"وثبة" هي منصة رقمية تهدف إلى تعزيز مشاركة المرأة السعودية في الأنشطة والمسابقات الرياضية داخل مجتمع المدينة المنورة. تم تصميم المنصة لتوفير بيئة رقمية متكاملة تتيح للمستخدمات استكشاف رياضات متعددة مثل التنس، السباحة، ركوب الخيل، الفنون القتالية وألعاب القوى، مع إمكانية حجز التجارب المجانية والدورات التدريبية، والوصول إلى المراكز المتخصصة، والدفع الإلكتروني بطريقة آمنة وسهلة.`,
+                projWeb1Extra: "انقر على الصورة لمشاهدتها بحجم كامل",
+                projWeb1Btn: "عرض المشروع الأصلي (GitHub)",
+                // Project Data 1
+                projData1Title: "تحليل البيانات لدعم القرارات الإدارية في مجالي الإنتاج والتسويق باستخدام Tableau",
+                projData1Desc: `يُعد هذا المشروع جزءًا من متطلبات مقرر نظم دعم الإدارة ضمن تخصص نظم المعلومات الإدارية، ويُعالج مشكلة حقيقية تواجه إحدى المنشآت الصناعية، والمتمثلة في ارتفاع معدلات العيوب خلال عمليات الإنتاج. تؤدي هذه العيوب إلى انخفاض جودة المنتجات، وزيادة تكاليف الصيانة، وانخفاض كفاءة الأداء التشغيلي. تم استخدام أداة Tableau لتحليل بيانات الإنتاج بهدف تحديد العوامل المؤثرة في حدوث العيوب، من خلال دراسة العلاقة بين العيوب وكل من: نوع الوردية – نوع المنتج – نوع الآلة – توقيت الإنتاج. وقد تم تصميم لوحة معلومات تفاعلية (Dashboard) تساعد متخذي القرار على فهم الأنماط واتخاذ إجراءات لتحسين جودة الإنتاج. ساعدت نتائج التحليل في تقديم توصيات عملية لتقليل العيوب من خلال تحسين توزيع الورديات، ومراقبة أداء الآلات، وتحسين توقيت الإنتاج.`,
+                projData1Extra: "انقر على الصورة لمشاهدتها بحجم كامل",
+                projData1Btn: "عرض المشروع الأصلي (Tableau Public)",
+                // Project Data 2
+                projData2Title: "تحليل أداء المبيعات والتكاليف لشركة تجزئة باستخدام Power BI",
+                projData2Desc: `مشروع لتحليل بيانات المبيعات والتكاليف وبناء لوحة معلومات تفاعلية في Power BI، توضح مؤشرات الأداء المالي والتشغيلي للشركة مثل الإيرادات، الربح، والمصروفات، مع إمكانية استكشاف الأداء حسب المنتجات والعملاء والمناطق لدعم اتخاذ القرارات.`,
+                projData2Extra: "انقر على الصورة لمشاهدتها بحجم كامل",
+                projData2Btn: "تنزيل ملف Power BI (PBIX)",
+                // Project UI/UX 1
+                projUiux1Title: "تصميم واجهات UI/UX لمشروع التوثيق الإلكتروني – بنك الراجحي",
+                projUiux1Desc: "خلال تدريبي التعاوني في بنك الراجحي، طوّرت مشروع «التوثيق الإلكتروني» الذي يحوّل عملية التوقيع التقليدية إلى رقمية. يتيح النظام للعملاء رفع تواقيعهم الإلكترونية بأمان عبر تطبيق البنك، مع ربطه بمنصة نفاذ للتحقق من الهوية. صممت واجهات UI/UX تركّز على البساطة والأمان وسلاسة تجربة المستخدم.",
+                projUiux1Extra: "انقر على الصورة لمشاهدتها بحجم كامل",
+                projUiux1Btn: "عرض المشروع الأصلي (Figma)",
+                // Contact
+                contactTitle: "تواصل معي",
+                contactEmailLabel: "البريد الإلكتروني",
+                contactPhoneLabel: "الهاتف",
+                contactLinkedinLabel: "لينكد إن",
+                footerText: "صمم بـ ❤️ بواسطة غدير المطيري.",
+                // Messages
+                msgTitlePlaceholder: "ملاحظة",
+                msgContentPlaceholder: "هذا المكان مخصص لصور المشروع. يُرجى استبدال العناصر النائبة بصور حقيقية لتفاصيل العمل.",
+                msgContentDownloadPBI: "لتحميل هذا المشروع، يرجى تحديث الرابط في كود HTML (العنصر: #project-data-2-link) إلى ملف PBIX أو ملف مضغوط.",
+                msgContentDownloadCV: "الزر متاح، يرجى إضافة رابط مباشر إلى سيرتك الذاتية (ملف PDF) في كود HTML (العنصر: #download-cv-btn) لتمكين التحميل.",
+                msgCloseBtn: "إغلاق",
+                msgPlaceholderImage: "مكان وضع الصور",
+                
+            },
+            en: {
+                // Header
+                headerName: "Ghadeer Almutairi",
+                headerWelcome: "Welcome to my Professional Portfolio",
+                heroCta: "Explore Projects",
+                // Navigation
+                navAbout: "About Me",
+                navProjects: "Projects",
+                navContact: "Get in Touch",
+                // About
+                aboutTitle: "About Me",
+                aboutDescription: "A graduate of Management Information Systems (MIS), I specialize in data analysis, project management, web development, and database administration. I aim to utilize my technical and managerial skills to build digital solutions that enhance work efficiency and support decision-making.",
+                // Education
+                educationTitle: "Education",
+                eduUni: "Taibah University",
+                eduMajor: "Major in Management Information Systems",
+                eduGpa: "GPA: 4.82",
+                eduHonors: "First Class Honors",
+                // Skills
+                skillsTitle: "Skills",
+                skill1: "Data Analysis",
+                skill2: "Project Management",
+                skill3: "Database Administration",
+                skill4: "UI/UX Design",
+                skill5: "Web Development",
+                // Certs
+                certsTitle: "Certifications & Courses",
+                cert1: "Certified Business Professional in Project Management (CBP-PM) from IBTA",
+                cert2: "Data Analysis Track from SATOR Platform",
+                cert3: "Artificial Intelligence Track from Simplilearn",
+                cert4: "Software Development Track from Simplilearn",
+                // Projects
+                projectsTitle: "Projects",
+                tabTitleWeb: "Web Development",
+                tabTitleData: "Data Analysis",
+                tabTitleUiux: "UI/UX Design",
+                // Project Web 1
+                projWeb1Title: "Wthba Platform",
+                projWeb1Desc: `"Wthba" is a digital platform designed to promote the participation of Saudi women in sports activities and competitions within the Al-Madinah community. The platform offers an integrated digital environment allowing users to explore various sports (e.g., tennis, swimming, martial arts), book free trials and courses, access specialized centers, and complete secure electronic payments.`,
+                projWeb1Extra: "Click on the image to view it in full size",
+                projWeb1Btn: "View Project (GitHub)",
+                // Project Data 1
+                projData1Title: "Data Analysis for Management Decisions in Production & Marketing using Tableau",
+                projData1Desc: `This project addresses a real issue faced by an industrial facility: high defect rates during production, leading to decreased quality and increased operational costs. Tableau was used to analyze production data to identify factors influencing defects, studying relationships between defects and shift type, product type, machine type, and production timing. An interactive dashboard was designed to aid decision-makers in understanding patterns and taking corrective actions.`,
+                projData1Extra: "Click on the image to view it in full size",
+                projData1Btn: "View Project (Tableau Public)",
+                // Project Data 2
+                projData2Title: "Sales & Cost Performance Analysis for a Retail Company using Power BI",
+                projData2Desc: `A project involving sales and cost data analysis to build an interactive Power BI dashboard, illustrating the company's financial and operational KPIs such as revenue, profit, and expenses, with the ability to explore performance by products, customers, and regions to support decision-making.`,
+                projData2Extra: "Click on the image to view it in full size",
+                projData2Btn: "Download Power BI File (PBIX)",
+                // Project UI/UX 1
+                projUiux1Title: "UI/UX Design for Electronic Documentation Project – Al Rajhi Bank",
+                projUiux1Desc: "During my cooperative training at Al Rajhi Bank, I developed the 'Electronic Documentation' project that transforms the traditional signing process into a digital one. The system allows customers to securely upload their electronic signatures through the bank's application, linked with the 'Nafath' platform for identity verification. I designed UI/UX interfaces focusing on simplicity, security, and smooth user experience.",
+                projUiux1Extra: "Click on the image to view it in full size",
+                projUiux1Btn: "View Project (Figma)",
+                // Contact
+                contactTitle: "Get in Touch",
+                contactEmailLabel: "Email",
+                contactPhoneLabel: "Phone",
+                contactLinkedinLabel: "LinkedIn",
+                footerText: "Crafted with ❤️ by Ghadeer Almutairi.",
+                // Messages
+                msgTitlePlaceholder: "Note",
+                msgContentPlaceholder: "This section is reserved for project images. Please replace the placeholders with actual visuals of your work.",
+                msgContentDownloadPBI: "To download this project, please update the link in the HTML code (Element: #project-data-2-link) to a PBIX or compressed file.",
+                msgContentDownloadCV: "The button is available, please add a direct link to your resume (PDF file) in the HTML code (Element: #download-cv-btn) to enable the download.",
+                msgCloseBtn: "Close",
+                msgPlaceholderImage: "Image Placeholder",
+            }
+        };
+
+        // Image Modal Functions
+        function openImageModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = src;
+            modalImage.alt = alt;
+            modal.classList.add('active');
+            
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            
+            // Restore body scrolling
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        // Close modal when clicking the close button
+        document.getElementById('closeModal').addEventListener('click', closeImageModal);
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+
+        // Function to update content based on language
+        function updateContent(lang) {
+            const t = translations[lang];
+
+            // Set language and direction
+            body.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            
+            // Apply font based on language
+            body.style.fontFamily = lang === 'ar' ? "'Cairo', 'Inter', sans-serif" : "'Inter', 'Cairo', sans-serif";
+
+            // Update Text Content
+            document.getElementById('header-name').textContent = t.headerName;
+            document.getElementById('header-welcome').textContent = t.headerWelcome;
+            document.getElementById('hero-cta-span').textContent = t.heroCta;
+            
+            // Navigation Links
+            document.getElementById('nav-about').textContent = t.navAbout;
+            document.getElementById('nav-projects').textContent = t.navProjects;
+            document.getElementById('nav-contact').textContent = t.navContact;
+
+            document.getElementById('about-title').textContent = t.aboutTitle;
+            document.getElementById('about-description').textContent = t.aboutDescription;
+            document.getElementById('education-title').textContent = t.educationTitle;
+            document.getElementById('edu-uni').textContent = t.eduUni;
+            document.getElementById('edu-major').textContent = t.eduMajor;
+            document.getElementById('edu-gpa').textContent = t.eduGpa;
+            document.getElementById('edu-honors').textContent = t.eduHonors;
+            document.getElementById('skills-title').textContent = t.skillsTitle;
+            document.getElementById('skill-1').textContent = t.skill1;
+            document.getElementById('skill-2').textContent = t.skill2;
+            document.getElementById('skill-3').textContent = t.skill3;
+            document.getElementById('skill-4').textContent = t.skill4;
+            document.getElementById('skill-5').textContent = t.skill5;
+            document.getElementById('certs-title').textContent = t.certsTitle;
+            document.getElementById('cert-1').textContent = t.cert1;
+            document.getElementById('cert-2').textContent = t.cert2;
+            document.getElementById('cert-3').textContent = t.cert3;
+            document.getElementById('cert-4').textContent = t.cert4;
+            document.getElementById('projects-title').textContent = t.projectsTitle;
+            document.getElementById('tab-title-web').textContent = t.tabTitleWeb;
+            document.getElementById('tab-title-data').textContent = t.tabTitleData;
+            document.getElementById('tab-title-uiux').textContent = t.tabTitleUiux;
+            
+            document.getElementById('project-web-1-title').textContent = t.projWeb1Title;
+            document.getElementById('project-web-1-desc').textContent = t.projWeb1Desc;
+            document.getElementById('project-web-1-extra').textContent = t.projWeb1Extra;
+            document.getElementById('project-web-1-btn').textContent = t.projWeb1Btn;
+            
+            document.getElementById('project-data-1-title').textContent = t.projData1Title;
+            document.getElementById('project-data-1-desc').textContent = t.projData1Desc;
+            document.getElementById('project-data-1-extra').textContent = t.projData1Extra;
+            document.getElementById('project-data-1-btn').textContent = t.projData1Btn;
+
+            document.getElementById('project-data-2-title').textContent = t.projData2Title;
+            document.getElementById('project-data-2-desc').textContent = t.projData2Desc;
+            document.getElementById('project-data-2-extra').textContent = t.projData2Extra;
+            document.getElementById('project-data-2-btn').textContent = t.projData2Btn;
+
+            document.getElementById('project-uiux-1-title').textContent = t.projUiux1Title;
+            document.getElementById('project-uiux-1-desc').textContent = t.projUiux1Desc;
+            document.getElementById('project-uiux-1-extra').textContent = t.projUiux1Extra;
+            document.getElementById('project-uiux-1-btn').textContent = t.projUiux1Btn;
+
+            document.getElementById('contact-title').textContent = t.contactTitle;
+            document.getElementById('contact-email-label').textContent = t.contactEmailLabel;
+            document.getElementById('contact-phone-label').textContent = t.contactPhoneLabel;
+            document.getElementById('contact-linkedin-label').textContent = t.contactLinkedinLabel;
+            document.getElementById('footer-text').innerHTML = t.footerText.replace('❤️', '<i data-lucide="heart" class="w-3 h-3 inline text-red-500"></i>');
+
+            // Update Message Box content
+            document.getElementById('msg-close-btn').textContent = t.msgCloseBtn;
+            
+            // Re-render lucide icons to fix potential RTL/LTR icon issues
+            lucide.createIcons();
+        }
+
+        // Function to toggle language
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('lang', currentLang);
+            updateContent(currentLang);
+        }
+
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            body.classList.toggle('dark-mode', isDarkMode);
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+            applyDarkModeState(isDarkMode);
+        }
+        
+        // Function to apply dark mode state
+        function applyDarkModeState(isDark) {
+            // Change moon icon to sun icon in dark mode
+            const icon = darkModeToggleBtn.querySelector('i');
+            icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+            
+            // Update accents on dynamic elements like header text and footer border
+            const root = document.documentElement;
+            const primaryLight = getComputedStyle(root).getPropertyValue('--primary-light');
+            const primaryDark = getComputedStyle(root).getPropertyValue('--primary-dark');
+
+            document.getElementById('header-name').style.color = isDark ? primaryDark : primaryLight;
+            document.getElementById('contact').style.borderColor = isDark ? primaryDark : primaryLight;
+            
+            lucide.createIcons();
+        }
+
+        // Function to toggle navigation menu
+        function toggleNavMenu() {
+            navMenu.classList.toggle('open');
+        }
+
+        // Function to select project tab
+        function selectTab(category) {
+            const tabs = document.querySelectorAll('.project-tab');
+            const contents = document.querySelectorAll('.project-content');
+
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            contents.forEach(content => content.classList.add('hidden'));
+
+            const selectedTab = document.querySelector(`[data-category="${category}"]`);
+            const selectedContent = document.getElementById(`content-${category}`);
+
+            // Apply active class. Styles are controlled by the dedicated CSS rules.
+            selectedTab.classList.add('active');
+
+            // Show content
+            selectedContent.classList.remove('hidden');
+        }
+
+        // Message functions
+        function showMessage(titleKey, contentKey) {
+            const t = translations[currentLang];
+            const msgBox = document.getElementById('custom-message');
+            document.getElementById('msg-title').textContent = t[titleKey];
+            document.getElementById('msg-content').textContent = t[contentKey];
+            msgBox.classList.remove('hidden');
+            msgBox.classList.add('flex');
+            // Animate scale in
+            msgBox.querySelector('div').classList.add('scale-100');
+            msgBox.querySelector('div').classList.remove('scale-95');
+        }
+
+        function hideMessage() {
+            const msgBox = document.getElementById('custom-message');
+            // Animate scale out
+            msgBox.querySelector('div').classList.remove('scale-100');
+            msgBox.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                msgBox.classList.add('hidden');
+                msgBox.classList.remove('flex');
+            }, 300);
+        }
+
+        function alertPlaceholder() {
+            showMessage('msgTitlePlaceholder', 'msgContentPlaceholder');
+        }
+
+        function showDownloadMessage(event, type) {
+            event.preventDefault();
+            if (type === 'pbi') {
+                 showMessage('msgTitlePlaceholder', 'msgContentDownloadPBI');
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Set Initial Mode: Default to Light unless explicitly stored as 'enabled' in localStorage.
+            const storedMode = localStorage.getItem('darkMode');
+            isDarkMode = storedMode === 'enabled'; 
+            
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+            }
+            applyDarkModeState(isDarkMode);
+
+            // 2. Set Initial Language
+            const storedLang = localStorage.getItem('lang') || 'ar';
+            currentLang = storedLang;
+            updateContent(currentLang);
+            
+            // 3. Set Event Listeners
+            langToggleBtn.addEventListener('click', toggleLanguage);
+            darkModeToggleBtn.addEventListener('click', toggleDarkMode);
+            navToggleBtn.addEventListener('click', toggleNavMenu);
+            
+            // Add event listeners to project tabs
+            document.querySelectorAll('.project-tab').forEach(tab => {
+                tab.addEventListener('click', () => selectTab(tab.dataset.category));
+            });
+            
+            // 4. Initial Project Tab Selection
+            selectTab('web');
+
+            // 5. Scroll Reveal Animation Logic
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
+        });
+    </script>
 </body>
 </html>
